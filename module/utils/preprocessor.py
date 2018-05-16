@@ -1,7 +1,7 @@
 
 import re
 
-from chr_handler import convert2typing
+from .chr_handler import convert2typing
 
 
 def _preprocess_all_pre(text):

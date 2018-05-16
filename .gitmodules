@@ -1,0 +1,3 @@
+[submodule "module/dic_converter"]
+	path = module/dic_converter
+	url = https://github.com/SeohaSong/dic_converter.git

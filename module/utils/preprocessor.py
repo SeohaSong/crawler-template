@@ -5,15 +5,17 @@ from .chr_handler import convert2typing
 
 
 def _preprocess_all_pre(text):
-    text = re.sub(r'[\u201d\u201c\u2019\u201b]', '', text)
+    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r'^\s?[.,]', '', text)
+    text = re.sub(r'[\u2018\u2019\u201c\u201d\'\"]', '', text)
     text = re.sub(r'.*[0-9].*', '', text)
     text = re.sub(r'.*[^\w,. ].*', '', text)
     return text
 
 def _preprocess_all_pos(text):
+    text = re.sub(r'\s+', ' ', text)
     text = re.sub(r'^ ', '', text)
     text = re.sub(r' $', '', text)
-    text = re.sub(r'\s+', ' ', text)
     return text
 
 def _preprocess_ko(text):
@@ -31,7 +33,7 @@ def _preprocess_en(text):
     return text
 
 
-def get_sentences(content, language, range_):
+def get_sentences(doc, language, range_):
 
     min_, max_ = range_
     if language == 'ko':
@@ -39,10 +41,8 @@ def get_sentences(content, language, range_):
     elif language == 'en':
         preprocess = _preprocess_en
     
-    sens = content
-    sens = sum([(sen+".").split(',') for sen in sens.split('.')], [])
-    sens = [(sen+",").replace(".,", ".") for sen in sens]
-    sens = [sen for sen in sens if len(sen) > 1]
+    sens = doc
+    sens = re.compile(r'.*?[.,]').findall(sens)
     sens = [preprocess(text) for text in sens]
 
     esc_idxs = []

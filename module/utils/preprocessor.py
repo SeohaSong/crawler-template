@@ -5,8 +5,7 @@ from .chr_handler import convert2typing
 
 
 def _preprocess_all_pre(text):
-    text = re.sub(r'\s+', ' ', text)
-    text = re.sub(r'^\s?[.,]', '', text)
+    text = re.sub(r'^\s*[.,]', '', text)
     text = re.sub(r'[\u2018\u2019\u201c\u201d\'\"]', '', text)
     text = re.sub(r'.*[0-9].*', '', text)
     text = re.sub(r'.*[^\w,. ].*', '', text)

@@ -25,7 +25,7 @@ def set_test(ids):
     name2size = {
         "ko": 100,
         "en": 100,
-        "sg": 400
+        "sg": 600
     }
 
     def get_experiments(id_, name):
@@ -121,9 +121,9 @@ if __name__ == "__main__":
 
 
     ids = [
-        "김준홍", 
-        "정재윤",
-        "송서하",
-        "양우식"
+        "2017021201", 
+        "2016010223",
+        "2017020556",
+        "2018020528"
     ]
     set_test(ids)

@@ -32,8 +32,10 @@ def set_test(ids):
         type_ = name2type[name]
         path = name2path[name]
         size = name2size[name]
-        datas = (np.random.choice(pd.read_pickle(path), size) if path 
-                 else [""]*size)
+        if path:
+            datas = np.random.choice(pd.read_pickle(path), size, replace=False)
+        else:
+            datas = [""]*size
         challenges = [{"challenge type='"+type_+"'": data} for data in datas]
         experiments = [{"experiment name='"+name+"-"+id_+"'": challenges}]
         return experiments

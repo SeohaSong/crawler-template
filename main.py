@@ -4,7 +4,6 @@ import numpy as np
 import os
 
 from module.utils.preprocessor import get_sentences
-from module.utils.crawler_collection import Typing_DNA
 from module.utils.crawler_collection import get_naver_web_novel
 from module.utils.text_collection import get_korea_sat_nonliteral
 from module.dic_converter import convert2xml
@@ -13,19 +12,28 @@ from module.dic_converter import convert2xml
 def set_test(ids):
 
     name2path = {
-        "ko": "./data/ko-sens",
-        "en": "./data/en-sens",
-        "sg": None
+        "ko-train": "./data/ko-train-sens",
+        "ko-test": "./data/ko-test-sens",
+        "sg-free": None,
+        "sg-strict": None,
+        "sf-free": None,
+        "sf-strict": None,
     }
     name2type = {
-        "ko": "keyboard",
-        "en": "keyboard",
-        "sg": "signature"
+        "ko-train": "keyboard",
+        "ko-test": "keyboard",
+        "sg-free": "signature",
+        "sg-strict": "signature",
+        "sf-free": "signature",
+        "sf-strict": "signature",
     }
     name2size = {
-        "ko": 100,
-        "en": 100,
-        "sg": 600
+        "ko-train": 100,
+        "ko-test": 10,
+        "sg-free": 900,
+        "sg-strict": 900,
+        "sf-free": 300,
+        "sf-strict": 300,
     }
 
     def get_experiments(id_, name):
@@ -53,7 +61,6 @@ def set_test(ids):
 
 if __name__ == "__main__":
 
-
     # 2005~2010년 비문학 지문 (6월 모평, 9월 모평, 수능)
     # 구르미 그린 달빛 - 윤이수 (무료 공개본)
     # 해시의 신루 - 윤이수 (무료 공개본)
@@ -68,15 +75,14 @@ if __name__ == "__main__":
             (398090, 4),
             (623314, 7),
             (583903, 5),
-            (494460, 9)
+            (494460, 9),
         ]
         for no in range(max_no)
     ]
 
     i = 0
     total_ko_sens = []
-    while not os.path.isfile("./data/ko-sens"):
-
+    while True:
         try:
             if not i:
                 docs = get_korea_sat_nonliteral()
@@ -85,42 +91,16 @@ if __name__ == "__main__":
             i += 1
         except:
             continue
-            
         sens = sum([get_sentences(doc, "ko", [160, 180]) for doc in docs], [])
         total_ko_sens += sens
         total_len = len(set(total_ko_sens))
         sys.stdout.write("\r% 4d | % 4d" % (i, total_len))
-        
-        if total_len >= 1000:
-            total_ko_sens = list(set(total_ko_sens))[:1000]
-            pd.to_pickle(total_ko_sens, "./data/ko-sens")
+        if total_len >= 1010:
+            total_ko_sens = list(set(total_ko_sens))[:1010]
+            pd.to_pickle(total_ko_sens[:1000], "./data/ko-train-sens")
+            pd.to_pickle(total_ko_sens[-10:], "./data/ko-test-sens")
             print()
-
-
-    # TypingDNA
-
-    site = Typing_DNA()
-
-    i = 0
-    total_en_sens = []
-    while not os.path.isfile("./data/en-sens"):
-
-        try:
-            docs = site.crawl()
-            i += 1
-        except:
-            continue
-        
-        sens = sum([get_sentences(doc, "en", [160, 180]) for doc in docs], [])
-        total_en_sens += sens
-        total_len = len(set(total_en_sens))
-        sys.stdout.write("\r% 4d | % 4d" % (i, total_len))
-        
-        if total_len >= 1000:
-            total_en_sens = list(set(total_en_sens))[:1000]
-            pd.to_pickle(total_en_sens, "./data/en-sens")
-            print()
-
+            break
 
     ids = [
         "2017021201", 

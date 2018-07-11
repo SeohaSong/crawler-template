@@ -4,8 +4,8 @@ import numpy as np
 import os
 
 from module.utils.preprocessor import get_sentences
-from module.utils.crawler_collection import get_naver_web_novel
 from module.utils.text_collection import get_korea_sat_nonliteral
+from module.utils.crawler_collection import get_naver_web_novel
 from module.dic_converter import convert2xml
 
 

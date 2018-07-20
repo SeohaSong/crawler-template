@@ -89,10 +89,5 @@ if __name__ == "__main__":
             print()
             break
 
-    ids = [
-        "2016010223",
-        "2017020556",
-        "2017021201", 
-        "2018020528"
-    ]
+    ids = [str(i+1) for i in range(50)]
     set_test(ids)

@@ -56,9 +56,9 @@ def set_test(ids):
 
 if __name__ == "__main__":
 
-    # 2005~2010년 비문학 지문 (6월 모평, 9월 모평, 수능)
-    # 구르미 그린 달빛 - 윤이수 (무료 공개본)
-    # 르네 마그리트의 연인 - 유지나 (무료 공개본)
+    # # 2005~2010년 비문학 지문 (6월 모평, 9월 모평, 수능)
+    # # 구르미 그린 달빛 - 윤이수 (무료 공개본)
+    # # 르네 마그리트의 연인 - 유지나 (무료 공개본)
 
     # args = [
     #     {"novel_id": id_, "volume_no": no+1}
@@ -105,8 +105,8 @@ if __name__ == "__main__":
         total_len = len(set(total_en_sens))
         sys.stdout.write("\r% 4d | % 4d" % (i, total_len))
         
-        if total_len >= 3:
-            total_en_sens = list(set(total_en_sens))[:3]
+        if total_len >= 750:
+            total_en_sens = list(set(total_en_sens))[:750]
             pd.to_pickle(total_en_sens, "./data/key-en")
             print()
             break

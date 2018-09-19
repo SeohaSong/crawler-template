@@ -91,28 +91,28 @@ if __name__ == "__main__":
     #         break
 
 
-    i = 0
-    total_en_sens = []
-    site = Typing_DNA()
-    while True:
-        try:
-            docs = site.crawl()
-            i += 1
-        except:
-            continue
-        sens = sum([get_sentences(doc, "en", [160, 200]) for doc in docs], [])
-        total_en_sens += sens
-        total_len = len(set(total_en_sens))
-        sys.stdout.write("\r% 4d | % 4d" % (i, total_len))
+    # i = 0
+    # total_en_sens = []
+    # site = Typing_DNA()
+    # while True:
+    #     try:
+    #         docs = site.crawl()
+    #         i += 1
+    #     except:
+    #         continue
+    #     sens = sum([get_sentences(doc, "en", [160, 200]) for doc in docs], [])
+    #     total_en_sens += sens
+    #     total_len = len(set(total_en_sens))
+    #     sys.stdout.write("\r% 4d | % 4d" % (i, total_len))
         
-        if total_len >= 750:
-            total_en_sens = list(set(total_en_sens))[:750]
-            pd.to_pickle(total_en_sens, "./data/key-en")
-            print()
-            break
+    #     if total_len >= 750:
+    #         total_en_sens = list(set(total_en_sens))[:750]
+    #         pd.to_pickle(total_en_sens, "./data/key-en")
+    #         print()
+    #         break
 
 
-    ids = [str(i+1) for i in range(4)]
+    ids = [str(i+1) for i in range(50)]
     set_test(ids)
 
 

@@ -12,26 +12,11 @@ from module.dic_converter import convert2xml
 
 def set_test(ids):
 
-    name2path = {
-        "key-ko": "./data/key-ko",
-        "key-en": "./data/key-en",
-        # "sig-fr": None,
-        # "sig-st": None,
-    }
-    name2type = {
-        "key-ko": "keyboard",
-        "key-en": "keyboard",
-        "sig-fr": "signature",
-        "sig-st": "signature",
-    }
-    name2size = {
-        "key-ko": 30,
-        "key-en": 30,
-        "sg-fr": 900,
-        "sg-st": 900,
-    }
 
     def get_experiments(id_, name):
+
+        nonlocal name2type, name2path, name2size
+
         type_ = name2type[name]
         path = name2path[name]
         size = name2size[name]
@@ -41,7 +26,32 @@ def set_test(ids):
             datas = [""]*size
         challenges = [{"challenge type='"+type_+"'": data} for data in datas]
         experiments = [{"experiment name='"+name+"-"+id_+"'": challenges}]
+
         return experiments
+
+
+    name2path = {
+        "key-ko": "./data/key-ko",
+        "key-en": "./data/key-en",
+        "sig-ko": None,
+        "sig-en": None,
+        "sig-fi": None,
+    }
+    name2type = {
+        "key-ko": "keyboard",
+        "key-en": "keyboard",
+        "sig-ko": "signature",
+        "sig-en": "signature",
+        "sig-fi": "signature",
+    }
+    name2size = {
+        "key-ko": 30,
+        "key-en": 30,
+        "sig-ko": 300,
+        "sig-en": 300,
+        "sig-fi": 300,
+    }
+
 
     np.random.seed(0)
     experiments = sum(
